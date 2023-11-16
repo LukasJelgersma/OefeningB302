@@ -12,6 +12,12 @@ class Genre extends Model
     /**
      * The books that belong to the genre
      */
+    protected $fillable =[
+        'book_id',
+        'name',
+        'createdAt',
+        'updatedAt'
+    ];
     public function books(): BelongsToMany
     {
         return $this->belongsToMany(Book::class);

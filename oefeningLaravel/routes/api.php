@@ -1,10 +1,11 @@
 <?php
 
-use App\Models\Author;
-use App\Models\Book;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\GenreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,23 +17,17 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::get('/books', function (){
-    return Book::all();
-});
+Route::resource('/books', BookController::class);
+Route::resource('/authors', AuthorController::class);
+Route::resource('/genres', GenreController::class);
 
-Route::post('/books', function(){
-   return Book::create([
-       'name' => 'Boek een',
-       'author_id' => 1
-       ]);
-});
 
-Route::post('/authors', function(){
-    return Author::create([
-        'name' => 'John Doe',
-        'age' => 52,
-    ]);
-});
+//Route::get('/books', [BookController::class, 'index']);
+
+//Route::post('/books', [BookController::class, 'store']);
+
+//Route::get('/books/{id}', [BookController::class, 'show']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
