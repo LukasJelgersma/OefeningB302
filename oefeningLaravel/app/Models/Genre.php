@@ -13,7 +13,7 @@ class Genre extends Model
      * The books that belong to the genre
      */
     protected $fillable =[
-        'book_id',
+        'genre_id',
         'name',
         'createdAt',
         'updatedAt'

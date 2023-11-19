@@ -13,8 +13,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('book_genre', function (Blueprint $table) {
-            $table->integer('book_id')->unsigned();
-            $table->integer('genre_id')->unsigned();
+            $table->unsignedBigInteger('book_id');
+            $table->unsignedBigInteger('genre_id');
+
             $table->foreign('book_id')
                 ->references('id')
                 ->on('books')
@@ -23,6 +24,8 @@ return new class extends Migration {
                 ->references('id')
                 ->on('genres')
                 ->onDelete('cascade');
+
+            $table->unique(['book_id', 'genre_id']);
         });
     }
 

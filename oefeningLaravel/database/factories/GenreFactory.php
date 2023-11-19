@@ -16,8 +16,13 @@ class GenreFactory extends Factory
      */
     public function definition(): array
     {
+        $genreNames = ['Mystery', 'Science Fiction', 'Fantasy', 'Romance', 'Thriller', 'Historical Fiction', 'Non-fiction', 'Biography', 'Autobiography', 'Poetry'];
+
+        // Pick a random genre name from the list
+        $genreName = $this->faker->randomElement($genreNames);
+
         return [
-            'name' => fake()->unique()->word(),
+            'name' => $genreName,
         ];
     }
 }

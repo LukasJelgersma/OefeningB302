@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Book;
+use App\Models\Genre;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +18,13 @@ class BookGenreFactory extends Factory
      */
     public function definition(): array
     {
+        // Get a random book and genre from the database
+        $book = Book::inRandomOrder()->first();
+        $genre = Genre::inRandomOrder()->first();
+
         return [
-            'book_id' => $this->faker->numberBetween(1, 50),
-            'genre_id' => $this->faker->numberBetween(1, 10),
+            'book_id' => $book->id,
+            'genre_id' => $genre->id,
         ];
     }
 }

@@ -17,22 +17,18 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Author::factory()
-            ->count(50)
-            ->create();
-
-        $genreNames = ['Mystery', 'Science Fiction', 'Fantasy', 'Romance', 'Thriller', 'Historical Fiction', 'Non-fiction', 'Biography', 'Autobiography', 'Poetry'];
-
-        foreach ($genreNames as $genreName) {
-            Genre::factory()->create(['name' => $genreName]);
-        }
-        Genre::factory()
-            ->count(12)
-            ->hasAttached(Book::factory()->count(3))
+            ->count(45)
             ->create();
 
         Book::factory()
-            ->count(70)
-            ->has(Author::factory()->count(3))
+            ->has(Author::factory()->count(4))
+            ->has(Genre::factory()->count(3))
+            ->create();
+
+        // Create 12 genres, each with 5 books
+        Genre::factory()
+            ->count(12)
+            ->hasAttached(Book::factory()->count(5))
             ->create();
     }
 }
