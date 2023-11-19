@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Author>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Genre>
  */
-class AuthorFactory extends Factory
+class GenreFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class AuthorFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'age' => fake()->numberBetween(18, 100),
+            'name' => fake()->unique()->word(),
         ];
     }
 }
