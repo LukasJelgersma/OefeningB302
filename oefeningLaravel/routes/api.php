@@ -21,14 +21,6 @@ Route::resource('/books', BookController::class);
 Route::resource('/authors', AuthorController::class);
 Route::resource('/genres', GenreController::class);
 
-
-//Route::get('/books', [BookController::class, 'index']);
-
-//Route::post('/books', [BookController::class, 'store']);
-
-//Route::get('/books/{id}', [BookController::class, 'show']);
-
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

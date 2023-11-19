@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookGenre;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Faker;
@@ -15,7 +16,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        return Book::all();
+        //Get the books and their genres
+        return Book::with('genre')->get();
     }
 
     /**
@@ -23,12 +25,23 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        // name author and genre are required
         $request->validate([
             'name' => 'required',
-            'author_id' => 'required'
+            'author_id' => 'required',
+            'genre_ids' => 'required|array'
+        ]);
+        // Create the book
+        $book = Book::create([
+            'name' => $request->input('name'),
+            'author_id' => $request->input('author_id'),
         ]);
 
-        return Book::create($request->all());
+        // Attach genres to the book
+        $book->genre()->attach($request->input('genre_ids'));
+
+
+        return $book->load('genre');
     }
 
     /**
@@ -36,7 +49,7 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        return Book::find($id);
+        return Book::find($id)->load('genre');
     }
 
     /**

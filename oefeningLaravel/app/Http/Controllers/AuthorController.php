@@ -8,6 +8,7 @@ use Faker;
 
 class AuthorController extends Controller
 {
+    //TODO implement ERRORS
     /**
      * Display a listing of the resource.
      */
@@ -42,7 +43,14 @@ class AuthorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'age' => 'required'
+        ]);
+        $author = Author::find($id);
+
+        $author->update($request->all());
+        return $author;
     }
 
     /**
@@ -50,6 +58,10 @@ class AuthorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //Destroy author and his books
+        //$author = Author::find($id);
+        //$author->books()->delete();
+
+        return Author::destroy($id);
     }
 }
