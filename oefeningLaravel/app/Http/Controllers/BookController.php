@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Faker;
+
+//require_once 'vendor/autoload.php';
 
 class BookController extends Controller
 {
@@ -41,7 +44,9 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $book = Book::find($id);
+        $book->update($request->all());
+        return $book;
     }
 
     /**
@@ -49,6 +54,6 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Book::destroy($id);
     }
 }
