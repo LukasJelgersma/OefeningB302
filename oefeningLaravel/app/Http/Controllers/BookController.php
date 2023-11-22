@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookRequest;
-use App\Models\BookGenre;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Models\Book;
-use Faker;
 
-//require_once 'vendor/autoload.php';
 
 class BookController extends Controller
 {
@@ -18,7 +14,6 @@ class BookController extends Controller
      */
     public function index()
     {
-        //Get the books and their genres
         return Book::with('genre')->get();
     }
 

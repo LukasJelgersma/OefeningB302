@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Models\Author;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Faker;
-use Illuminate\Support\Facades\Auth;
 
 class AuthorController extends Controller
 {

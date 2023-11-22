@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGenreRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Models\Genre;
 
 class GenreController extends Controller
