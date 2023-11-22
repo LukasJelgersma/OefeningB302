@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAuthorRequest;
 use App\Models\Author;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Faker;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorController extends Controller
 {
-    //TODO implement ERRORS
     /**
      * Display a listing of the resource.
      */
@@ -20,14 +22,11 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAuthorRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'age' => 'required'
-        ]);
-
-        return Author::create($request->all());
+        $validated = $request->validated();
+        Author::create($validated);
+        return redirect()->route('authors.index');
     }
 
     /**
@@ -41,16 +40,13 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreAuthorRequest $request, string $id): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'age' => 'required'
-        ]);
+        $validated = $request->validated();
         $author = Author::find($id);
 
-        $author->update($request->all());
-        return $author;
+        $author->update($validated);
+        return redirect()->route('authors.index');
     }
 
     /**
@@ -58,10 +54,6 @@ class AuthorController extends Controller
      */
     public function destroy(string $id)
     {
-        //Destroy author and his books
-        //$author = Author::find($id);
-        //$author->books()->delete();
-
         return Author::destroy($id);
     }
 }

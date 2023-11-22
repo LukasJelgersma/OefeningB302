@@ -27,4 +27,6 @@ class BookGenreFactory extends Factory
             'genre_id' => $genre->id,
         ];
     }
+
+
 }

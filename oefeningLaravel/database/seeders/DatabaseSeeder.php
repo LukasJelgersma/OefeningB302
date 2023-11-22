@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\BookGenre;
 use App\Models\Genre;
 use Database\Factories\BookGenreFactory;
 use Illuminate\Database\Seeder;
@@ -17,18 +17,22 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Author::factory()
-            ->count(45)
+            ->count(30)
             ->create();
 
         Book::factory()
+            ->count(60)
             ->has(Author::factory()->count(4))
-            ->has(Genre::factory()->count(3))
             ->create();
 
-        // Create 12 genres, each with 5 books
         Genre::factory()
             ->count(12)
-            ->hasAttached(Book::factory()->count(5))
             ->create();
+
+        Book::all()->each(function (Book $book) {
+            $book->genre()->attach(
+                Genre::inRandomOrder()->take(rand(1, 3))->pluck('id')->toArray()
+            );
+        });
     }
 }

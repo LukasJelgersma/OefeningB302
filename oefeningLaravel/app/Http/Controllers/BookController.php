@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookRequest;
 use App\Models\BookGenre;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Faker;
@@ -23,25 +25,23 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBookRequest $request): RedirectResponse
     {
         // name author and genre are required
-        $request->validate([
-            'name' => 'required',
-            'author_id' => 'required',
-            'genre_ids' => 'required|array'
-        ]);
         // Create the book
+        $validated = $request->validated();
+
         $book = Book::create([
-            'name' => $request->input('name'),
-            'author_id' => $request->input('author_id'),
+            'name' => $validated['name'],
+            'author_id' => $validated['author_id']
         ]);
 
         // Attach genres to the book
-        $book->genre()->attach($request->input('genre_ids'));
+        $book->genre()->attach($validated['genre_ids']);
+        $book->load('genre');
 
 
-        return $book->load('genre');
+        return redirect()->route('books.index');
     }
 
     /**
@@ -55,11 +55,19 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreBookRequest $request, string $id): RedirectResponse
     {
+        $validated = $request->validated();
+
         $book = Book::find($id);
-        $book->update($request->all());
-        return $book;
+        $book->update([
+            'name' => $validated['name'],
+            'author_id' => $validated['author_id'],
+        ]);
+
+        $book->genre()->sync($validated['genre_ids']);
+
+        return redirect()->route('books.index');
     }
 
     /**

@@ -13,9 +13,7 @@ class BookGenre extends Pivot
 
     protected $fillable =[
         'book_id',
-        'genre_id',
-        'createdAt',
-        'updatedAt'
+        'genre_id'
     ];
 
     public function book(): BelongsTo

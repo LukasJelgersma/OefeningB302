@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreGenreRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Genre;
 
@@ -18,13 +20,12 @@ class GenreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreGenreRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
+        $validated = $request->validated();
+        Genre::create($validated);
 
-        return Genre::create($request->all());
+        return redirect()->route('genres.index');
     }
 
     /**
@@ -38,9 +39,15 @@ class GenreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreGenreRequest $request, string $id): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+
+        $genre = Genre::find($id);
+
+        $genre->update($validated);
+
+        return redirect()->route('genres.index');
     }
 
     /**
@@ -48,6 +55,6 @@ class GenreController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Genre::destroy($id);
     }
 }

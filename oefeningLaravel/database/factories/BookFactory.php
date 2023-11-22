@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Author;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +17,10 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
+        $authorId = Author::inRandomOrder()->first()->id;
         return [
             'name' => fake()->name(),
-            'author_id' => fake()->numberBetween(1, 100),
+            'author_id' => $authorId,
         ];
     }
 }

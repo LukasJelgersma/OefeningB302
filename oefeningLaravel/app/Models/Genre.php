@@ -18,6 +18,7 @@ class Genre extends Model
         'createdAt',
         'updatedAt'
     ];
+
     public function books(): BelongsToMany
     {
         return $this->belongsToMany(Book::class);
