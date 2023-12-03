@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IndexBookRequest;
 use App\Http\Requests\StoreBookRequest;
+use App\Models\Genre;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Book;
 
@@ -19,7 +20,7 @@ class BookController extends Controller
 
         $name = $validated['name'] ?? null;
         $order = $validated['order'] ?? 'asc';
-        $genreIds = $validated['genre_ids'] ?? null;
+        $genreIds = $validated['genre_ids'] ?? Genre::all()->pluck('id');
 
         return Book::with('genre')
             ->where('name', 'like', '%'.$name.'%')
@@ -39,7 +40,8 @@ class BookController extends Controller
 
         $book = Book::create([
             'name' => $validated['name'],
-            'author_id' => $validated['author_id']
+            'author_id' => $validated['author_id'],
+            'publication_year' => $validated['publication_year'],
         ]);
 
         // Attach genres to the book
