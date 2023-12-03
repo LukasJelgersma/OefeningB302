@@ -21,6 +21,7 @@ class BookFactory extends Factory
         return [
             'name' => fake()->name(),
             'author_id' => $authorId,
+            'publication_year' => fake()->year(),
         ];
     }
 }

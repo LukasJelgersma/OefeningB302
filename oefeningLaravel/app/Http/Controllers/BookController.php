@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndexBookRequest;
 use App\Http\Requests\StoreBookRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Book;
@@ -12,15 +13,25 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(IndexBookRequest $request)
     {
-        return Book::with('genre')->get();
+        $validated = $request->validated();
+
+        $name = $validated['name'] ?? null;
+        $order = $validated['order'] ?? 'asc';
+        $genreIds = $validated['genre_ids'] ?? null;
+
+        return Book::with('genre')
+            ->where('name', 'like', '%'.$name.'%')
+            ->whereIn('id', $genreIds)
+            ->orderBy('publication_year', $order)
+            ->paginate(10);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBookRequest $request): RedirectResponse
+    public function store(StoreBookRequest $request)
     {
         // name author and genre are required
         // Create the book
@@ -36,21 +47,21 @@ class BookController extends Controller
         $book->load('genre');
 
 
-        return redirect()->route('books.index');
+        return Book::with('genre')->get();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Book $book)
     {
-        return Book::find($id)->load('genre');
+        return $book->load('genre');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreBookRequest $request, string $id): RedirectResponse
+    public function update(StoreBookRequest $request, string $id)
     {
         $validated = $request->validated();
 
@@ -62,7 +73,7 @@ class BookController extends Controller
 
         $book->genre()->sync($validated['genre_ids']);
 
-        return redirect()->route('books.index');
+        return Book::with('genre')->get();
     }
 
     /**

@@ -17,9 +17,10 @@ use App\Http\Controllers\GenreController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::resource('/books', BookController::class);
-Route::resource('/authors', AuthorController::class);
-Route::resource('/genres', GenreController::class);
+Route::apiresource('/books', BookController::class);
+Route::apiResource('/authors', AuthorController::class);
+Route::apiresource('/genres', GenreController::class);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -14,8 +14,7 @@ class Book extends Model
         'book_id',
         'name',
         'author_id',
-        'createdAt',
-        'updatedAt'
+        'publication_year',
     ];
 
     /**

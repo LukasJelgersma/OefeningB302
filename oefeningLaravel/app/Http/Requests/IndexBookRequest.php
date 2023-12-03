@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAuthorRequest extends FormRequest
+class IndexBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class StoreAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|between:2,191',
-            'age' => 'required|max:120',
+            'name' => 'nullable|between:2,191',
+            'order' => 'nullable|in:asc,desc',
+            'genre_ids' => 'nullable|array|max:4',
+            'genre_ids.*' => 'exists:genres,id',
         ];
     }
 }

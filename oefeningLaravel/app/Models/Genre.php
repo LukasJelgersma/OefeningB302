@@ -15,8 +15,6 @@ class Genre extends Model
     protected $fillable =[
         'genre_id',
         'name',
-        'createdAt',
-        'updatedAt'
     ];
 
     public function books(): BelongsToMany

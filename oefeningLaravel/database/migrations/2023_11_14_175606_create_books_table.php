@@ -17,12 +17,10 @@ return new class extends Migration
             $table->foreignId('author_id')
                 ->constrained(table: 'authors', indexName: 'author_id')
                 ->onDelete('cascade');
+            $table->integer('publication_year');
             $table->timestamps();
         });
     }
-
-    //172549_create_books_table.php
-    //175606_create_authors_table.php
     /**
      * Reverse the migrations.
      */

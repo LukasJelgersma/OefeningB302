@@ -19,26 +19,26 @@ class GenreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreGenreRequest $request): RedirectResponse
+    public function store(StoreGenreRequest $request)
     {
         $validated = $request->validated();
         Genre::create($validated);
 
-        return redirect()->route('genres.index');
+        return Genre::all();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Genre $genre)
     {
-        return Genre::find($id);
+        return $genre;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreGenreRequest $request, string $id): RedirectResponse
+    public function update(StoreGenreRequest $request, string $id)
     {
         $validated = $request->validated();
 
@@ -46,7 +46,7 @@ class GenreController extends Controller
 
         $genre->update($validated);
 
-        return redirect()->route('genres.index');
+        return Genre::all();
     }
 
     /**
