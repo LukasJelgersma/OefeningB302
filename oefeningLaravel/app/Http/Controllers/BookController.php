@@ -7,6 +7,8 @@ use App\Http\Requests\StoreBookRequest;
 use App\Models\Genre;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Book;
+use OpenApi\Annotations as OA;
+
 
 
 class BookController extends Controller
@@ -14,6 +16,7 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index(IndexBookRequest $request)
     {
         $validated = $request->validated();
@@ -28,9 +31,22 @@ class BookController extends Controller
             ->orderBy('publication_year', $order)
             ->paginate(10);
     }
-
     /**
-     * Store a newly created resource in storage.
+     * Add a new book to the database.
+     *
+     * @OA\Post(
+     *     path="/book",
+     *     tags={"book"},
+     }     operationId="store",
+     *     @OA\Response(
+     *         response=405,
+     *         description="Invalid input"
+     *     ),
+     *     security={
+     *         {"petstore_auth": {"write:pets", "read:pets"}}
+     *     },
+     *     @OA\RequestBody(ref="#/components/requestBodies/Book")
+     * )
      */
     public function store(StoreBookRequest $request)
     {
@@ -63,11 +79,10 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreBookRequest $request, string $id)
+    public function update(StoreBookRequest $request, Book $book)
     {
         $validated = $request->validated();
 
-        $book = Book::find($id);
         $book->update([
             'name' => $validated['name'],
             'author_id' => $validated['author_id'],
@@ -81,8 +96,8 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Book $book)
     {
-        return Book::destroy($id);
+        return Book::destroy($book->id);
     }
 }
