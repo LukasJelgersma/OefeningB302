@@ -63,11 +63,10 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreBookRequest $request, string $id)
+    public function update(StoreBookRequest $request,Book $book)
     {
         $validated = $request->validated();
 
-        $book = Book::find($id);
         $book->update([
             'name' => $validated['name'],
             'author_id' => $validated['author_id'],
@@ -81,8 +80,8 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Book $book)
     {
-        return Book::destroy($id);
+        return Book::destroy($book->id);
     }
 }

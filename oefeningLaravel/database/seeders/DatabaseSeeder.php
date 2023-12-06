@@ -6,6 +6,8 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\BookGenre;
 use App\Models\Genre;
+use App\Models\User;
+use App\Models\UserRole;
 use Database\Factories\BookGenreFactory;
 use Illuminate\Database\Seeder;
 
@@ -34,5 +36,21 @@ class DatabaseSeeder extends Seeder
                 Genre::inRandomOrder()->take(rand(1, 3))->pluck('id')->toArray()
             );
         });
+
+
+        UserRole::factory()
+            ->count(1)
+            ->create([
+                'role_name' => 'admin',
+            ]);
+        UserRole::factory()
+            ->count(1)
+            ->create([
+                'role_name' => 'normal',
+            ]);
+
+        User::factory()
+            ->count(10)
+            ->create();
     }
 }

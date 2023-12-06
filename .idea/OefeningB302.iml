@@ -2,12 +2,6 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/oefeningLaravel/app" isTestSource="false" packagePrefix="App\" />
-      <sourceFolder url="file://$MODULE_DIR$/oefeningLaravel/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
-      <sourceFolder url="file://$MODULE_DIR$/oefeningLaravel/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
-      <sourceFolder url="file://$MODULE_DIR$/oefeningLaravel/tests" isTestSource="true" packagePrefix="Tests\" />
-      <sourceFolder url="file://$MODULE_DIR$/oefeningLaravel/tests/Feature" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/oefeningLaravel/tests/Unit" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/oefeningLaravel/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/oefeningLaravel/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/oefeningLaravel/vendor/dflydev/dot-access-data" />
