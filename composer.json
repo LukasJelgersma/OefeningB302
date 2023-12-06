@@ -1,6 +1,5 @@
 {
     "require": {
-        "fakerphp/faker": "^1.23",
-        "darkaonline/l5-swagger": "^8.5"
+        "fakerphp/faker": "^1.23"
     }
 }

@@ -38,12 +38,11 @@ class GenreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreGenreRequest $request, Genre $genre)
+    public function update(StoreGenreRequest $request, string $id)
     {
-
-        $this->authorize('update', $genre);
-
         $validated = $request->validated();
+
+        $genre = Genre::find($id);
 
         $genre->update($validated);
 
@@ -53,8 +52,8 @@ class GenreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Genre $genre)
+    public function destroy(string $id)
     {
-        return Genre::destroy($genre->id);
+        return Genre::destroy($id);
     }
 }

@@ -2,21 +2,16 @@
 
 namespace App\Providers;
 
-use App\Models\Genre;
-use App\Policies\GenrePolicy;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-
-
-
     /**
      * Register any application services.
      */
     public function register(): void
     {
-
+        //
     }
 
     /**

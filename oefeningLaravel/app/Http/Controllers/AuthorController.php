@@ -36,9 +36,10 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreAuthorRequest $request, Author $author)
+    public function update(StoreAuthorRequest $request, string $id)
     {
         $validated = $request->validated();
+        $author = Author::find($id);
 
         $author->update($validated);
         return Author::all();
@@ -47,8 +48,8 @@ class AuthorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Author $author)
+    public function destroy(string $id)
     {
-        return Author::destroy($author->id);
+        return Author::destroy($id);
     }
 }

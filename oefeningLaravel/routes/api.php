@@ -8,8 +8,6 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\GenreController;
 
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,7 +27,6 @@ Route::get('/authors', [AuthorController::class, 'index']);
 Route::get('/authors/{author}', [AuthorController::class, 'show']);
 Route::get('/genres', [GenreController::class, 'index']);
 Route::get('/genres/{genre}', [GenreController::class, 'show']);
-
 
 //Route::apiresource('/books', BookController::class);
 //Route::apiResource('/authors', AuthorController::class);
