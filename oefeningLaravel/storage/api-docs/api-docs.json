@@ -1,0 +1,121 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Bookstore API",
+        "description": "Bookstore API",
+        "contact": {
+            "email": "lukas@b302.nl"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/genres": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Get all genres",
+                "description": "Get all genres",
+                "operationId": "index",
+                "requestBody": {
+                    "description": "Genres",
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: All genres"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Store a genre",
+                "description": "Store a genre, this can only be done by an authenticated user.",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Genre",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Genre"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: A genre has been stored"
+                    }
+                },
+                "security": [
+                    {
+                        "genre_auth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Genre": {
+                "title": "Genre",
+                "description": "Genre model",
+                "properties": {
+                    "name": {
+                        "title": "Genre name",
+                        "description": "Genre name",
+                        "type": "string",
+                        "example": "Fantasy"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Genre"
+                }
+            }
+        },
+        "securitySchemes": {
+            "api_key": {
+                "type": "apiKey",
+                "name": "api_key",
+                "in": "header"
+            },
+            "genre_auth": {
+                "type": "apiKey",
+                "flows": {
+                    "password": {
+                        "tokenUrl": "/api/login",
+                        "scopes": {}
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Books",
+            "description": "API Endpoints of Books"
+        },
+        {
+            "name": "Authors",
+            "description": "API Endpoints of Authors"
+        },
+        {
+            "name": "Genres",
+            "description": "API Endpoints of Genres"
+        }
+    ]
+}
