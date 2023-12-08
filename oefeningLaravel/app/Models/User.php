@@ -9,6 +9,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @OA\Schema(
+ *     title="User",
+ *     description="User model",
+ *     @OA\Xml(
+ *     name="User"
+ *    )
+ * )
+ */
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -18,6 +28,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
     protected $fillable = [
         'name',
         'email',
@@ -48,4 +59,26 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UserRole::class);
     }
+
+    /**
+     * @OA\Property(
+     *     title="email",
+     *     description="User email",
+     *     example="brad@email.com"
+     * )
+     *
+     * @var string
+     */
+    private $email;
+
+    /**
+     * @OA\Property(
+     *     title="password",
+     *     description="User password",
+     *     example="brad123"
+     * )
+     *
+     * @var string
+     */
+    private $password;
 }

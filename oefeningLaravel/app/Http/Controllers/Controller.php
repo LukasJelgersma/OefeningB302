@@ -35,6 +35,10 @@ use Illuminate\Routing\Controller as BaseController;
  *     name="Genres",
  *     description="API Endpoints of Genres"
  * )
+ * @OA\Tag(
+ *     name="Auth",
+ *     description="API Endpoints of Auth"
+ * )
  *
  */
 class Controller extends BaseController

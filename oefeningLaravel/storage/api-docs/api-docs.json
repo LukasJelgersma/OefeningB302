@@ -19,6 +19,394 @@
         }
     ],
     "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register",
+                "description": "Register",
+                "operationId": "register",
+                "requestBody": {
+                    "description": "Register",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success: Register"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "description": "Login",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Login",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success: Login"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "description": "Logout",
+                "operationId": "logout",
+                "requestBody": {
+                    "description": "Logout",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success: Logout"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/authors": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get all authors",
+                "description": "Get all authors",
+                "operationId": "indexAuthors",
+                "requestBody": {
+                    "description": "Authors",
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: All authors"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Store an author",
+                "description": "Store an author, this can only be done by an authenticated user.",
+                "operationId": "storeAuthors",
+                "requestBody": {
+                    "description": "Author",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Author"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: An author has been created"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/authors/{author}": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get an author",
+                "description": "Get an author",
+                "operationId": "showAuthors",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Id of author that needs to be fetched",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: An author has been found"
+                    },
+                    "404": {
+                        "description": "An author has not been found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Update an author",
+                "description": "Update an author",
+                "operationId": "updateAuthors",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Id of author that needs to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Author",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Author"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: An author has been updated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Delete an author",
+                "description": "Delete an author",
+                "operationId": "destroyAuthors",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Id of author that needs to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: An author has been deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/books": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Get all books",
+                "description": "Get all books",
+                "operationId": "indexBooks",
+                "requestBody": {
+                    "description": "Books",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/IndexBookRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: All books"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Store a book",
+                "description": "Store a book, this can only be done by an authenticated user.",
+                "operationId": "storeBooks",
+                "requestBody": {
+                    "description": "Book",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Book"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: A book has been created"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/books/{book}": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Get a book",
+                "description": "Get a book",
+                "operationId": "showBooks",
+                "parameters": [
+                    {
+                        "name": "book",
+                        "in": "path",
+                        "description": "The id of the book",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: A book"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Update a book",
+                "description": "Update a book",
+                "operationId": "updateBooks",
+                "parameters": [
+                    {
+                        "name": "book",
+                        "in": "path",
+                        "description": "The id of the book",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Book",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Book"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: A book has been updated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Delete a book",
+                "description": "Delete a book",
+                "operationId": "destroyBooks",
+                "parameters": [
+                    {
+                        "name": "book",
+                        "in": "path",
+                        "description": "The id of the book",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success: A book has been deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/genres": {
             "get": {
                 "tags": [
@@ -26,7 +414,7 @@
                 ],
                 "summary": "Get all genres",
                 "description": "Get all genres",
-                "operationId": "index",
+                "operationId": "indexGenres",
                 "requestBody": {
                     "description": "Genres",
                     "required": false
@@ -43,7 +431,7 @@
                 ],
                 "summary": "Store a genre",
                 "description": "Store a genre, this can only be done by an authenticated user.",
-                "operationId": "store",
+                "operationId": "storeGenres",
                 "requestBody": {
                     "description": "Genre",
                     "required": true,
@@ -57,12 +445,121 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Success: A genre has been stored"
+                        "description": "Success: A genre has been created"
                     }
                 },
                 "security": [
                     {
-                        "genre_auth": []
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/genres/{genre_id}": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Get a genre",
+                "description": "Get a genre",
+                "operationId": "showGenres",
+                "parameters": [
+                    {
+                        "name": "genre_id",
+                        "in": "path",
+                        "description": "Id of genre that needs to be fetched",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Genre",
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: A genre has been fetched"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Update a genre",
+                "description": "Update a genre, this can only be done by an authenticated user.",
+                "operationId": "updateGenres",
+                "parameters": [
+                    {
+                        "name": "genre_id",
+                        "in": "path",
+                        "description": "Id of genre that needs to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Genre",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Genre"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: A genre has been updated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Delete a genre",
+                "description": "Delete a genre, this can only be done by an authenticated user.",
+                "operationId": "destroyGenres",
+                "parameters": [
+                    {
+                        "name": "genre_id",
+                        "in": "path",
+                        "description": "Id of genre that needs to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Genre",
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success: A genre has been deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -70,6 +567,96 @@
     },
     "components": {
         "schemas": {
+            "IndexBookRequest": {
+                "title": "Index Book request",
+                "description": "Index Book request body data",
+                "properties": {
+                    "name": {
+                        "title": "Book name",
+                        "description": "Book name",
+                        "type": "string",
+                        "example": "Baylee"
+                    },
+                    "order": {
+                        "title": "Order",
+                        "description": "Order of book publication year",
+                        "type": "string",
+                        "example": "asc"
+                    },
+                    "genre": {
+                        "title": "Genre ids",
+                        "description": "Genre ids",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "genre": {
+                                    "type": "integer",
+                                    "example": "1"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "example": [
+                            6,
+                            10
+                        ]
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "IndexBookRequest"
+                }
+            },
+            "Author": {
+                "title": "Author",
+                "description": "Author model",
+                "properties": {
+                    "name": {
+                        "title": "Author name",
+                        "description": "Author name",
+                        "type": "string",
+                        "example": "J.K. Rowling"
+                    },
+                    "age": {
+                        "title": "Author age",
+                        "description": "Author age",
+                        "type": "string",
+                        "example": "55"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Author"
+                }
+            },
+            "Book": {
+                "title": "Book",
+                "description": "Book model",
+                "properties": {
+                    "name": {
+                        "title": "Book name",
+                        "description": "Book name",
+                        "type": "string",
+                        "example": "Harry Potter"
+                    },
+                    "publication_year": {
+                        "title": "Book publication year",
+                        "description": "Book publication year",
+                        "type": "string",
+                        "example": "1997"
+                    },
+                    "author": {
+                        "title": "Book author id",
+                        "description": "Book author id",
+                        "type": "string",
+                        "example": "10"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Book"
+                }
+            },
             "Genre": {
                 "title": "Genre",
                 "description": "Genre model",
@@ -85,22 +672,34 @@
                 "xml": {
                     "name": "Genre"
                 }
+            },
+            "User": {
+                "title": "User",
+                "description": "User model",
+                "properties": {
+                    "email": {
+                        "title": "email",
+                        "description": "User email",
+                        "type": "string",
+                        "example": "brad@email.com"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "User password",
+                        "type": "string",
+                        "example": "brad123"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
             }
         },
         "securitySchemes": {
-            "api_key": {
-                "type": "apiKey",
-                "name": "api_key",
-                "in": "header"
-            },
-            "genre_auth": {
-                "type": "apiKey",
-                "flows": {
-                    "password": {
-                        "tokenUrl": "/api/login",
-                        "scopes": {}
-                    }
-                }
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
             }
         }
     },
@@ -116,6 +715,10 @@
         {
             "name": "Genres",
             "description": "API Endpoints of Genres"
+        },
+        {
+            "name": "Auth",
+            "description": "API Endpoints of Auth"
         }
     ]
 }

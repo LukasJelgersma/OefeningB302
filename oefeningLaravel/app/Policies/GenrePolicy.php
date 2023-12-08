@@ -8,20 +8,10 @@ use Illuminate\Auth\Access\Response;
 
 /**
  * @OA\SecurityScheme(
- *     securityScheme="api_key",
- *     type="apiKey",
- *     in="header",
- *     name="api_key"
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
  * )
- * @OA\SecurityScheme(
- *      securityScheme="genre_auth",
- *      type="apiKey",
- *     @OA\Flow(
- *     flow="password",
- *     tokenUrl="/api/login",
- *     scopes={}
- *     )
- *  )
  */
 
 class GenrePolicy
@@ -31,8 +21,28 @@ class GenrePolicy
      */
     public function update(User $user): Response
     {
-        return $user->user_role_id === 2
+        return $user->user_role_id === 1
             ? Response::allow()
             : Response::deny('You are not authorized to update a genre.');
+    }
+
+/**
+     * Determine whether the user can delete the model.
+     */
+    public function destroy(User $user): Response
+    {
+        return $user->user_role_id === 1
+            ? Response::allow()
+            : Response::deny('You are not authorized to delete a genre.');
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     */
+    public function store(User $user): Response
+    {
+        return $user->user_role_id === 1
+            ? Response::allow()
+            : Response::deny('You are not authorized to restore a genre.');
     }
 }

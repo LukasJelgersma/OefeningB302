@@ -20,6 +20,7 @@ return new class extends Migration
             $table->rememberToken();
             $table
                 ->foreignId('user_role_id')
+                ->default(2)
                 ->constrained(table: 'user_roles', indexName: 'user_role_id')
                 ->onDelete('cascade');
             $table->timestamps();

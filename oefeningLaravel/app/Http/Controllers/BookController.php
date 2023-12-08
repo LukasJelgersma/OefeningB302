@@ -8,11 +8,25 @@ use App\Models\Genre;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Book;
 
-
 class BookController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get (
+     *     path="/books",
+     *     tags={"Books"},
+     *     summary="Get all books",
+     *     description="Get all books",
+     *     operationId="indexBooks",
+     *     @OA\Response(
+     *     response=200,
+     *     description="Success: All books",
+     *     ),
+     *     @OA\RequestBody(
+     *     description="Books",
+     *     required=false,
+     *     @OA\JsonContent(ref="#/components/schemas/IndexBookRequest"),
+     *     )
+     * )
      */
     public function index(IndexBookRequest $request)
     {
@@ -30,7 +44,24 @@ class BookController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/books",
+     *     tags={"Books"},
+     *     summary="Store a book",
+     *     description="Store a book, this can only be done by an authenticated user.",
+     *     operationId="storeBooks",
+     *     @OA\Response(
+     *     response=200,
+     *     description="Success: A book has been created",
+     *     ),
+     *     security={{"bearerAuth": {}}},
+     *     @OA\RequestBody(
+     *     description="Book",
+     *     required=true,
+     *     @OA\JsonContent(ref="#/components/schemas/Book"),
+     *     ),
+     *   )
+     * )
      */
     public function store(StoreBookRequest $request)
     {
@@ -53,7 +84,28 @@ class BookController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/books/{book}",
+     *     tags={"Books"},
+     *     summary="Get a book",
+     *     description="Get a book",
+     *     operationId="showBooks",
+     *     @OA\Parameter(
+     *     in="path",
+     *     name="book",
+     *     description="The id of the book",
+     *     required=true,
+     *     @OA\Schema(
+     *     type="integer",
+     *     format="int64",
+     *     ),
+     *     ),
+     *     @OA\Response(
+     *     response=200,
+     *     description="Success: A book",
+     *     ),
+     *   )
+     * )
      */
     public function show(Book $book)
     {
@@ -61,8 +113,35 @@ class BookController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/books/{book}",
+     *     tags={"Books"},
+     *     summary="Update a book",
+     *     description="Update a book",
+     *     operationId="updateBooks",
+     *     @OA\Parameter(
+     *         name="book",
+     *         in="path",
+     *         description="The id of the book",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64",
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success: A book has been updated",
+     *     ),
+     *     security={{"bearerAuth": {}}},
+     *     @OA\RequestBody(
+     *         description="Book",
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Book"),
+     *     ),
+     * )
      */
+
     public function update(StoreBookRequest $request,Book $book)
     {
         $validated = $request->validated();
@@ -77,8 +156,31 @@ class BookController extends Controller
         return Book::with('genre')->get();
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/books/{book}",
+     *     tags={"Books"},
+     *     summary="Delete a book",
+     *     description="Delete a book",
+     *     operationId="destroyBooks",
+     *     @OA\Parameter(
+     *     name="book",
+     *     description="The id of the book",
+     *     required=true,
+     *     in="path",
+     *     @OA\Schema(
+     *     type="integer",
+     *     format="int64",
+     *     ),
+     *     ),
+     *     @OA\Response(
+     *     response=200,
+     *     description="Success: A book has been deleted",
+     *     ),
+     *     security={{"bearerAuth": {}}},
+     *   )
+     * )
      */
     public function destroy(Book $book)
     {

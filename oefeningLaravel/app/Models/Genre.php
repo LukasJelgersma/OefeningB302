@@ -31,6 +31,7 @@ class Genre extends Model
     {
         return $this->belongsToMany(Book::class);
     }
+
     /**
      * @OA\Property(
      *     title="Genre name",
